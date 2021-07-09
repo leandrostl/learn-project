@@ -8,7 +8,8 @@ import io.swagger.v3.oas.annotations.info.Info
 @OpenAPIDefinition(
     info = Info(
         title = "Learn Project",
-        version = "0.0"
+        version = "0.0",
+        description = "A project to rule them all!! Nothing but a place to learn and try interesting technologies."
     )
 )
 object Application {
