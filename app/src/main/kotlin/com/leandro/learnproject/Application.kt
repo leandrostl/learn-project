@@ -16,4 +16,5 @@ object Application {
     fun main(args: Array<String>) {
         Micronaut.run(Application.javaClass)
     }
+
 }
