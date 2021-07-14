@@ -3,6 +3,7 @@ plugins {
     id("org.jetbrains.kotlin.kapt") version "1.5.10"
     id("io.micronaut.application") version "1.5.3"
     id("org.jetbrains.kotlin.plugin.allopen") version "1.5.10"
+    id("org.sonarqube") version "3.3"
 }
 
 version = "0.1"
@@ -18,6 +19,14 @@ micronaut {
     processing {
         incremental(true)
         annotations("com.leandro.*")
+    }
+}
+
+sonarqube {
+    properties {
+        property("sonar.projectKey", "leandrostl_learn-project")
+        property("sonar.organization", "leandrostl")
+        property("sonar.host.url", "https://sonarcloud.io")
     }
 }
 
