@@ -17,12 +17,13 @@ import io.micronaut.security.rules.SecurityRule
 @Controller("/hello")
 @Validated
 class HelloController {
+    private val defaultGreetings = "Hello World"
     /**
      * @return Hello World!
      */
     @Secured("VIEW")
     @Get(produces = [MediaType.TEXT_PLAIN])
-    fun helloWorld(): String = "Hello World"
+    fun helloWorld(): String = defaultGreetings
 
     /**
      * Shows a message of greeting to given name.
@@ -33,7 +34,8 @@ class HelloController {
     @Secured("ADMIN")
     @Get(uri = "/{name}", produces = [MediaType.TEXT_PLAIN])
     @Operation(
-        summary = "Greets a person", description = "A friendly greeting is returned", responses = [
+        summary = "Greets a person", description = "A friendly greeting is returned",
+        responses = [
             ApiResponse(content = [Content(mediaType = "text/plain", schema = Schema(type = "string"))]),
             ApiResponse(responseCode = "400", description = "Invalid Name Supplied"),
             ApiResponse(responseCode = "404", description = "Person not found")
