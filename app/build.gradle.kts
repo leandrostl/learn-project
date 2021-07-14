@@ -1,9 +1,8 @@
 plugins {
-    id("org.jetbrains.kotlin.jvm") version "1.4.32"
-    id("org.jetbrains.kotlin.kapt") version "1.4.32"
-    id("com.github.johnrengelman.shadow") version "7.0.0"
+    id("org.jetbrains.kotlin.jvm") version "1.5.10"
+    id("org.jetbrains.kotlin.kapt") version "1.5.10"
     id("io.micronaut.application") version "1.5.3"
-    id("org.jetbrains.kotlin.plugin.allopen") version "1.4.32"
+    id("org.jetbrains.kotlin.plugin.allopen") version "1.5.10"
 }
 
 version = "0.1"
@@ -39,7 +38,7 @@ dependencies {
 
 application {
     // Define the main class for the application.
-    mainClass.set("com.leandro.learnproject.AppKt")
+    mainClass.set("com.leandro.learnproject.Application")
 }
 
 java {
