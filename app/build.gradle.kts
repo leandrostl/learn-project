@@ -4,6 +4,9 @@ plugins {
     id("io.micronaut.application") version "1.5.3"
     id("org.jetbrains.kotlin.plugin.allopen") version "1.5.10"
     id("org.sonarqube") version "3.3"
+    jacoco
+    id("io.gitlab.arturbosch.detekt") version "1.17.1"
+    id("org.jmailen.kotlinter") version "3.4.5"
 }
 
 version = "0.1"
@@ -30,6 +33,19 @@ sonarqube {
     }
 }
 
+detekt {
+    buildUponDefaultConfig = true // preconfigure defaults
+    allRules = false // activate all available (even unstable) rules.
+    config = files("$projectDir/config/detekt.yml") // point to your custom config defining rules to run, overwriting default behavior
+    baseline = file("$projectDir/config/baseline.xml") // a way of suppressing issues before introducing detekt
+
+    reports {
+        html.enabled = true // observe findings in your browser with structure and code snippets
+        xml.enabled = true // checkstyle like format mainly for integrations like Jenkins
+        txt.enabled = true // similar to the console output, contains issue signature to manually edit baseline files
+        sarif.enabled = true // standardized SARIF format (https://sarifweb.azurewebsites.net/) to support integrations with Github Code Scanning
+    }
+}
 
 dependencies {
     kapt("io.micronaut.openapi:micronaut-openapi")
@@ -43,6 +59,7 @@ dependencies {
     runtimeOnly("ch.qos.logback:logback-classic")
     implementation("io.micronaut:micronaut-validation")
     runtimeOnly("com.fasterxml.jackson.module:jackson-module-kotlin")
+    detektPlugins("io.gitlab.arturbosch.detekt:detekt-formatting:1.17.1")
 }
 
 application {
@@ -60,6 +77,11 @@ kapt {
     }
 }
 
+jacoco {
+    toolVersion = "0.8.7"
+    reportsDirectory.set(layout.buildDirectory.dir("customJacocoReportDir"))
+}
+
 tasks {
     compileKotlin {
         kotlinOptions {
@@ -69,6 +91,13 @@ tasks {
     compileTestKotlin {
         kotlinOptions {
             jvmTarget = "15"
+        }
+    }
+    jacocoTestReport {
+        reports {
+            xml.required.set(false)
+            csv.required.set(false)
+            html.outputLocation.set(layout.buildDirectory.dir("jacoco"))
         }
     }
 }
