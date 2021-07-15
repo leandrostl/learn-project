@@ -12,6 +12,6 @@ internal class UsersStore {
     @MapFormat
     lateinit var roles: Map<String, String>
 
-    fun getUserPassword(username: String) : String? = users[username]
-    fun getUserRole(username: String) : String? = roles[username]
+    fun getUserPassword(username: String): String? = users[username]
+    fun getUserRole(username: String): String? = roles[username]
 }
